@@ -19,8 +19,10 @@ let tray = null
 const isSecondInstance = app.makeSingleInstance((commandLine, workingDirectory) => {
   // Someone tried to run a second instance, we should focus our window.
   if (window.mainWindow) {
-    if (window.mainWindow.isMinimized()) window.mainWindow.restore()
-    window.mainWindow.show()
+    if (window.mainWindow.isMinimized()) {
+      window.mainWindow.restore()
+      window.mainWindow.show()
+    }
   } else {
     window.buildMainWindow()
   }
@@ -37,14 +39,14 @@ if (isSecondInstance) {
       .then(appMenu => {
         tray = new Tray(getIcon())
         const contextMenu = appMenu
-        tray.setToolTip('FIRST LEGO League Scoring System')
+        tray.setToolTip('FIRST LEGO League Scoring')
         tray.setContextMenu(contextMenu)
       })
       .then(() => window.buildMainWindow())
       .catch(err => {
         console.error(err)
       })
-    
+
   })
 
   app.on('before-quit', () => {
